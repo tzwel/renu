@@ -30,7 +30,6 @@ const actions = {
 	i(string) { actions.input(string) },
 
 	rename(name) {
-
 		let customCounter = false
 		if (name.includes(specials.incrementTemplate)) {
 			customCounter = true
@@ -59,6 +58,25 @@ const actions = {
 	},
 	r(name) { actions.rename(name) },
 
+	regex(expression) {
+		data.regex = new RegExp(expression, 'gm');
+	},
+	x(expression) { actions.regex(expression) }, // x from eXpression
+
+	substitute(string) {
+		if (!data.regex) {
+			console.log(`To use substitute, you first must define a regex. --regex or -x `);
+			return process.exit(1)
+		}
+		console.log(string.length);
+		for (let i = 0; i < data.files.length; i++) {
+			const file = data.files[i]
+			file.filename = file.filename.replace(data.regex, string)
+		}
+	},
+	sub(string) { actions.regex(string) },
+
+
 	list() {
 		data.files.forEach(file => {
 			console.log(file.filename + file.extension)
@@ -84,6 +102,7 @@ const actions = {
 }
 
 let data = {
+	regex: '',
 	index: 0,
 	files: []
 }
@@ -116,7 +135,7 @@ for (const [key, value] of Object.entries(argv)) {
 
 
 function insertToQueue(key, value) {
-	return actionQueue.push([key, value])
+	return actionQueue.push([key, value.trim()])
 }
 
 // do actions on files in {data}
@@ -128,7 +147,7 @@ actionQueue.forEach((action)=> {
 data.files.forEach((file)=>{
 	try {
 		
-		if (/\.[^\(\)]+$/gi.test(file.filename)) {
+		if (/\.[^\(\ )]+$/gi.test(file.filename)) {
 			renameSync(file.path, join(file.dirname, file.filename))
 			console.log(`Renamed ${file.originalfilename + file.extension} => ${file.filename}`)
 		} else if (file.originalfilename + file.extension !== file.filename + file.extension) {

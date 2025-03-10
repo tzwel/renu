@@ -28,7 +28,7 @@ renu --input "textfile.txt" --rename "azip.zip"
 => Renamed textfile.txt => azip.zip
 ```
 
-Every argument can be shortened like so: `renu -i "textfile.txt" -r "azip.zip"`
+Most arguments can be shortened like so: `renu -i "textfile.txt" -r "azip.zip"`
 
 #### Batch renaming - custom filename format
 
@@ -103,6 +103,25 @@ renu -i "*.zip" -p "pre" -s "suf" -r "foo"
 
 => Renamed file.zip => foo.zip
 ```
+
+### Regex
+
+**Warning: this is an experimental feature**
+
+You can initialize a regex to use later with args like `substitute` using `--regex` or its shorthand `-x`.
+
+### Substitute
+
+**Warning: this is an experimental feature**
+
+By using `--substitute` you can replace any string defined by `--regex`.
+
+```sh
+renu -i "*.mp3" -x "\[\S+\]" --substitute ""
+
+Renamed Artist - Song [ewRjZoRtu0Y].mp3 => Artist - Song .mp3
+```
+
 
 ## You should know
 
