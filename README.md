@@ -6,13 +6,13 @@ A simple utility for renaming files
 
 ## Usage
 
-To get help, run `renu` without any arguments
+To see all available arguments, run `renu` without any arguments. For detailed usage information it's best to refer to this file
 
 Arguments in renu are executed sequentially, meaning the order they are provided is significant. For example - you can not rename files before they are read, so first you must read them with `--input {glob pattern}`
 
 ### Rename
 
-This example renames all `.txt` files found to `some textfile.txt`. If multiple files are found, the name is kept with an incrementing counter appended to the filename like so: `some textfile (1).txt`.
+This example renames all `.txt` files found to `some textfile.txt`. If multiple files are found, the name is kept with an incrementing counter appended to the filename like so: `some textfile (1).txt`
 
 ```
 renu --input "*.txt" --rename "some textfile"
@@ -21,7 +21,7 @@ renu --input "*.txt" --rename "some textfile"
 => Renamed secondexample.txt => some textfile (1).txt
 ```
 
-If an extension is provided, it overwrites the original extension of the file.
+If an extension is provided, it overwrites the original extension of the file
 ```
 renu --input "textfile.txt" --rename "azip.zip"
 
@@ -63,4 +63,12 @@ You can easily perform multiple operations in one command
 renu -i "*.zip" -r "foo" -p "pre" -s "suf"
 
 => Renamed file.zip => prefoosuf.zip
+```
+
+In the above example, we first change the name of the file to `foo` and *then* do all the work with suffixes and prefixes. If we were to change the order of operations by renaming the file at the end, the prefix and suffix would get overriden as renu executes operations sequentially.
+
+```
+renu -i "*.zip" -p "pre" -s "suf" -r "foo"
+
+=> Renamed file.zip => foo.zip
 ```

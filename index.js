@@ -75,7 +75,9 @@ if (Object.entries(argv).length <= 1) {
 `Usage:
 renu --i "*.mp3" --prefix something
 
-Available args: ${validArguments.join(', ')}`
+Available args: ${validArguments.join(', ')}
+
+For detailed usage information refer to README.md`
 	console.log(help)
 }
 
