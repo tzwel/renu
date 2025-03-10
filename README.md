@@ -9,7 +9,7 @@ A simple utility for renaming files
 To get help, run `renu` without any arguments
 
 Arguments in renu are executed sequentially, meaning the order they are provided is significant. For example - you can not rename files before they are read, so first you must read them with `--input {glob pattern}`
-s
+
 ### Rename
 
 This example renames all `.txt` files found to `some textfile.txt`. If multiple files are found, the name is kept with an incrementing counter appended to the filename like so: `some textfile (1).txt`.
@@ -53,4 +53,14 @@ The same rules apply to **suffixes**:
 
 ```
 renu -i "*.txt" --suffix "some suffix"
+```
+
+### Chaining (multiple operations at once)
+
+You can easily perform multiple operations in one command
+
+```
+renu -i "*.zip" -r "foo" -p "pre" -s "suf"
+
+=> Renamed file.zip => prefoosuf.zip
 ```
