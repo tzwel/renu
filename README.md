@@ -14,7 +14,7 @@ Arguments in renu are executed sequentially, meaning the order they are provided
 
 This example renames all `.txt` files found to `some textfile.txt`. If multiple files are found, the name is kept with an incrementing counter appended to the filename like so: `some textfile (1).txt`
 
-```
+```sh
 renu --input "*.txt" --rename "some textfile"
 
 => Renamed example.txt => some textfile (0).txt
@@ -22,7 +22,7 @@ renu --input "*.txt" --rename "some textfile"
 ```
 
 If an extension is provided, it overwrites the original extension of the file
-```
+```sh
 renu --input "textfile.txt" --rename "azip.zip"
 
 => Renamed textfile.txt => azip.zip
@@ -36,7 +36,7 @@ By default, renamed files follow the `filename (n).extension` format. However, y
 
 Here, we are changing the position of the counter to the front of the filename:
 
-```
+```sh
 renu -i "*.txt" -r ":counter file"
 
 Renamed something.txt => 0 file.txt
@@ -46,7 +46,7 @@ Renamed something.txt => 2 file.txt
 
 If you want to keep the original filename, use the `:filename` token:
 
-```
+```sh
 renu -i "*.txt" -r ":counter :filename"
 
 => Renamed afile.txt => 0 afile.txt
@@ -55,7 +55,7 @@ renu -i "*.txt" -r ":counter :filename"
 
 This doesn't really seem useful, but you can use it to customize a prefix/suffix further. For example label songs using a custom format
 
-```
+```sh
 renu -i song.mp3 -r "artist - :filename"
 
 => Renamed song.mp3 => artist - song.mp3
@@ -65,7 +65,7 @@ renu -i song.mp3 -r "artist - :filename"
 
 To see all matched files, simply provide the `--list` argument
 
-```
+```sh
 renu -i "*.mp3" --list
 ```
 
@@ -73,7 +73,7 @@ renu -i "*.mp3" --list
 
 **Prefixes** and suffixes are also trivial in renu
 
-```
+```sh
 renu -i "*.doc" --prefix "awesome "
 
 => Renamed work.doc => awesome work.doc
@@ -82,7 +82,7 @@ renu -i "*.doc" --prefix "awesome "
 
 The same rules apply to **suffixes**:
 
-```
+```sh
 renu -i "*.txt" --suffix "some suffix"
 ```
 
@@ -90,7 +90,7 @@ renu -i "*.txt" --suffix "some suffix"
 
 You can easily perform multiple operations in one command
 
-```
+```sh
 renu -i "*.zip" -r "foo" -p "pre" -s "suf"
 
 => Renamed file.zip => prefoosuf.zip
@@ -98,7 +98,7 @@ renu -i "*.zip" -r "foo" -p "pre" -s "suf"
 
 In the above example, we first change the name of the file to `foo` and *then* do all the work with suffixes and prefixes. If we were to change the order of operations by renaming the file at the end, the prefix and suffix would get overriden as renu executes operations sequentially.
 
-```
+```sh
 renu -i "*.zip" -p "pre" -s "suf" -r "foo"
 
 => Renamed file.zip => foo.zip
