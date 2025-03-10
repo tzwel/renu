@@ -24,9 +24,18 @@ const actions = {
 		})
 	},
 	i(string) { actions.input(string) },
-	// regex(pattern) {
-	// 	throw Error('regex is not implemented yet')
-	// },
+
+	rename(name) {
+		if (data.files.length === 1) {
+			data.files[0].filename = name
+		} else {
+			data.files.forEach(file => {
+				file.filename = `${name} (${data.index})`
+				data.index += 1
+			})
+		}
+	},
+	r(name) { actions.rename(name) },
 
 	list() {
 		data.files.forEach(file => {
@@ -42,6 +51,7 @@ const actions = {
 		}
 	},
 	p(string) { actions.prefix(string) },
+
 	suffix(string) {
 		for (let i = 0; i < data.files.length; i++) {
 			const file = data.files[i]
@@ -52,6 +62,7 @@ const actions = {
 }
 
 let data = {
+	index: 0,
 	files: []
 }
 
@@ -103,10 +114,17 @@ actionQueue.forEach((action)=> {
 // rename in fs
 data.files.forEach((file)=>{
 	try {
-		if (file.originalfilename + file.extension !== file.filename + file.extension) {
+		
+		if (extname(file.filename)) {
+			renameSync(file.path, join(file.dirname, file.filename))
+			console.log(`Renamed ${file.originalfilename + file.extension} => ${file.filename}`)
+		} else if (file.originalfilename + file.extension !== file.filename + file.extension) {
 			renameSync(file.path, join(file.dirname, file.filename + file.extension))
 			console.log(`Renamed ${file.originalfilename + file.extension} => ${file.filename + file.extension}`)
-		}
+		} 
+		// else {
+		// 	console.log('No action was taken.');
+		// }
 	} catch {
 		throw Error(`Couldn\'t rename ${file.filename + file.extension}!`)
 	}
