@@ -68,7 +68,6 @@ const actions = {
 			console.log(`To use substitute, you first must define a regex. --regex or -x `);
 			return process.exit(1)
 		}
-		console.log(string.length);
 		for (let i = 0; i < data.files.length; i++) {
 			const file = data.files[i]
 			file.filename = file.filename.replace(data.regex, string)
@@ -102,6 +101,7 @@ const actions = {
 }
 
 let data = {
+	count: 0,
 	regex: '',
 	index: 0,
 	files: []
@@ -135,7 +135,7 @@ for (const [key, value] of Object.entries(argv)) {
 
 
 function insertToQueue(key, value) {
-	return actionQueue.push([key, value.trim()])
+	return actionQueue.push([key, value])
 }
 
 // do actions on files in {data}
@@ -150,9 +150,11 @@ data.files.forEach((file)=>{
 		if (/\.[^\(\ )]+$/gi.test(file.filename)) {
 			renameSync(file.path, join(file.dirname, file.filename))
 			console.log(`Renamed ${file.originalfilename + file.extension} => ${file.filename}`)
+			data.count += 1
 		} else if (file.originalfilename + file.extension !== file.filename + file.extension) {
 			renameSync(file.path, join(file.dirname, file.filename + file.extension))
 			console.log(`Renamed ${file.originalfilename + file.extension} => ${file.filename + file.extension}`)
+			data.count += 1
 		} 
 		// else {
 		// 	console.log('No action was taken.');
@@ -162,3 +164,6 @@ data.files.forEach((file)=>{
 	}
 })
 
+if (data.count > 1) {
+	console.log(`Renamed ${data.count} ${data.count === 1 ? 'file' : 'files'}`);
+}
