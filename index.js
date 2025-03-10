@@ -1,10 +1,12 @@
+#!/usr/bin/env node
+
 // node . --i "*.mp3" --prefix "something :inc" --match "[A-z]"
 
-process.removeAllListeners('warning');
+process.removeAllListeners('warning')
 
 
 
-const argv = require('minimist')(process.argv.slice(2));
+const argv = require('minimist')(process.argv.slice(2))
 const { globSync, renameSync } = require('node:fs')
 const { extname, basename, join, dirname } = require('node:path')
 
@@ -31,8 +33,8 @@ const actions = {
 
 	list() {
 		data.files.forEach(file => {
-			console.log(file.filename + file.extension + '\n');
-		});
+			console.log(file.filename + file.extension + '\n')
+		})
 	},
 	l() { actions.list() },
 
@@ -58,7 +60,7 @@ let data = {
 
 let actionQueue = []
 
-const validArguments = Object.keys(actions);
+const validArguments = Object.keys(actions)
 
 if (Object.entries(argv).length <= 1) {
 	const help =
@@ -70,14 +72,14 @@ Available args: ${validArguments.join(', ')}`
 }
 
 for (const [key, value] of Object.entries(argv)) {
-    if (key === '_') {
-        continue
-    }
-    if (!validArguments.includes(key)) {
-        console.log(`Invalid argument "${key}". Invoke without arguments for help`)
+	if (key === '_') {
+		continue
+	}
+	if (!validArguments.includes(key)) {
+		console.log(`Invalid argument "${key}". Invoke without arguments for help`)
 		process.exit()
-    }
-    insertToQueue(key, value)
+	}
+	insertToQueue(key, value)
 }
 
 

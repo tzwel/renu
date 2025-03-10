@@ -1,7 +1,8 @@
 {
 	"name": "renu",
+	"main": "index.js",
 	"bin": {
-		"renu": "index.js"
+		"renu": "./index.js"
 	},
 	"dependencies": {
 		"minimist": "^1.2.8"
