@@ -103,3 +103,9 @@ renu -i "*.zip" -p "pre" -s "suf" -r "foo"
 
 => Renamed file.zip => foo.zip
 ```
+
+## You should know
+
+Renu uses `globSync`, which was introuced in Node.js v22.0.0. Renu won't work on older versions of node.
+
+Renu has only one dependency: [https://www.npmjs.com/package/minimist](minimist) for parsing arguments. Minimist itself has no dependencies. This is unlikely to ever change as I advocate for simplicity.
