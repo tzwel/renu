@@ -36,17 +36,21 @@ const actions = {
 			customCounter = true
 		}
 
+
 		if (data.files.length === 1) {
+			name = name
+				.replaceAll(specials.filename, data.files[0].filename);
 			data.files[0].filename = name
 		} else {
 			data.files.forEach(file => {
+				name = name
+				.replaceAll(specials.filename, file.filename);
 
 				if (!customCounter) {
 					file.filename = `${name} (${data.index})`
 				} else {
 					file.filename = name
 						.replaceAll(specials.incrementTemplate, data.index)
-						.replaceAll(specials.filename, file.filename)
 				}
 
 				data.index += 1

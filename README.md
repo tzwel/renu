@@ -53,7 +53,13 @@ renu -i "*.txt" -r ":counter :filename"
 => Renamed differentfile.txt => 1 differentfile.txt
 ```
 
-This will only work when used with `:counter`. But this doesn't really seem useful
+This doesn't really seem useful, but you can use it to customize a prefix/suffix further. For example label songs using a custom format
+
+```
+renu -i song.mp3 -r "artist - :filename"
+
+=> Renamed song.mp3 => artist - song.mp3
+```
 
 ### List
 
