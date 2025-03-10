@@ -7,6 +7,12 @@ process.removeAllListeners('warning')
 const argv = require('minimist')(process.argv.slice(2))
 const { globSync, renameSync } = require('node:fs')
 const { extname, basename, join, dirname } = require('node:path')
+
+const specials = {
+	incrementTemplate: ':counter',
+	filename: ':filename'
+}
+
 const actions = {
 	input(pattern) {
 		const globFiles = globSync(join(process.cwd(), pattern))
@@ -26,11 +32,25 @@ const actions = {
 	i(string) { actions.input(string) },
 
 	rename(name) {
+
+		let customCounter = false
+		if (name.includes(specials.incrementTemplate)) {
+			customCounter = true
+		}
+
 		if (data.files.length === 1) {
 			data.files[0].filename = name
 		} else {
 			data.files.forEach(file => {
-				file.filename = `${name} (${data.index})`
+
+				if (!customCounter) {
+					file.filename = `${name} (${data.index})`
+				} else {
+					file.filename = name
+						.replaceAll(specials.incrementTemplate, data.index)
+						.replaceAll(specials.filename, file.filename)
+				}
+
 				data.index += 1
 			})
 		}
@@ -117,7 +137,7 @@ actionQueue.forEach((action)=> {
 data.files.forEach((file)=>{
 	try {
 		
-		if (extname(file.filename)) {
+		if (/\.[^\(\)]+$/gi.test(file.filename)) {
 			renameSync(file.path, join(file.dirname, file.filename))
 			console.log(`Renamed ${file.originalfilename + file.extension} => ${file.filename}`)
 		} else if (file.originalfilename + file.extension !== file.filename + file.extension) {

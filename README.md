@@ -30,6 +30,31 @@ renu --input "textfile.txt" --rename "azip.zip"
 
 Every argument can be shortened like so: `renu -i "textfile.txt" -r "azip.zip"`
 
+#### Batch renaming - custom filename format
+
+By default, renamed files follow the `filename (n).extension` format. However, you can customize this by using the `:counter` token in the `--rename` argument.
+
+Here, we are changing the position of the counter to the front of the filename:
+
+```
+renu -i "*.txt" -r ":counter file"
+
+Renamed something.txt => 0 file.txt
+Renamed something.txt => 1 file.txt
+Renamed something.txt => 2 file.txt
+```
+
+If you want to keep the original filename, use the `:filename` token:
+
+```
+renu -i "*.txt" -r ":counter :filename"
+
+=> Renamed afile.txt => 0 afile.txt
+=> Renamed differentfile.txt => 1 differentfile.txt
+```
+
+This will only work when used with `:counter`. But this doesn't really seem useful
+
 ### List
 
 To see all matched files, simply provide the `--list` argument
