@@ -4,14 +4,12 @@
 
 process.removeAllListeners('warning')
 
-
-
 const argv = require('minimist')(process.argv.slice(2))
 const { globSync, renameSync } = require('node:fs')
 const { extname, basename, join, dirname } = require('node:path')
 const actions = {
 	input(pattern) {
-		const globFiles = globSync(join(process.cwd() + pattern))
+		const globFiles = globSync(join(process.cwd(), pattern))
 		globFiles.forEach((file)=> {
 			const ext = extname(file)
 			data.files.push(
@@ -32,7 +30,7 @@ const actions = {
 
 	list() {
 		data.files.forEach(file => {
-			console.log(file.filename + file.extension + '\n')
+			console.log(file.filename + file.extension)
 		})
 	},
 	l() { actions.list() },
