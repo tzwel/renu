@@ -1,5 +1,6 @@
 {
 	"name": "renu",
+	"version": "0.0.0",
 	"main": "index.js",
 	"bin": {
 		"renu": "./index.js"

@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-// node . --i "*.mp3" --prefix "something :inc" --match "[A-z]"
-
 process.removeAllListeners('warning')
 
 const argv = require('minimist')(process.argv.slice(2))
@@ -115,17 +113,6 @@ for (const [key, value] of Object.entries(argv)) {
 
 function insertToQueue(key, value) {
 	return actionQueue.push([key, value])
-	// switch (key) {
-	// 	case 'i':
-	// 	case 'input':
-	// 		return actionQueue.push(['input', value])
-	// 	case 'prefix:
-	// 		return actionQueue.push(['prefix', value])
-	// 	case 'regex':
-	// 		return actionQueue.push(['regex', value])
-	// 	default:
-	// 		return
-	// }
 }
 
 // do actions on files in {data}
