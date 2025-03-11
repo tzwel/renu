@@ -122,7 +122,6 @@ renu -i "*.mp3" -x "\[\S+\]" --substitute ""
 Renamed Artist - Song [ewRjZoRtu0Y].mp3 => Artist - Song .mp3
 ```
 
-
 ## You should know
 
 Renu uses `globSync`, which was introuced in Node.js v22.0.0. Renu won't work on older versions of node.

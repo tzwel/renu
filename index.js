@@ -15,19 +15,24 @@ const actions = {
 	input(pattern) {
 		const globFiles = globSync(join(process.cwd(), pattern))
 		globFiles.forEach((file)=> {
-			const ext = extname(file)
-			data.files.push(
-				{
-					'dirname': dirname(file),
-					'path': file,
-					'originalfilename': basename(file, ext),
-					'filename': basename(file, ext),
-					'extension': ext
-				}
-			)
+			let ext = file.match(/\.[^\(\ \/\n)]+$/gi) // swapped from original extname
+			// don't work on directories
+			if (ext) {
+				ext = ext[0]
+				data.files.push(
+					{
+						'dirname': dirname(file),
+						'path': file,
+						'originalfilename': basename(file, ext),
+						'filename': basename(file, ext),
+						'extension': ext
+					}
+				)
+			}
+			
 		})
 	},
-	i(string) { actions.input(string) },
+	i(pattern) { actions.input(pattern) },
 
 	rename(name) {
 		let customCounter = false
@@ -147,7 +152,9 @@ actionQueue.forEach((action)=> {
 data.files.forEach((file)=>{
 	try {
 		
-		if (/\.[^\(\ \/\n)]+$/gi.test(file.filename)) {
+		// second condition is a fix to the .git (or similar files) bug when the extension is the same as the filename
+		if (/\.[^\(\ \/\n)]+$/gi.test(file.filename) && file.filename !== file.extension) {
+			console.log(file.filename);
 			renameSync(file.path, join(file.dirname, file.filename))
 			console.log(`Renamed ${file.originalfilename + file.extension} => ${file.filename}`)
 			data.count += 1
@@ -159,7 +166,8 @@ data.files.forEach((file)=>{
 		// else {
 		// 	console.log('No action was taken.');
 		// }
-	} catch {
+	} catch(err) {
+		console.log(err);
 		throw Error(`Couldn\'t rename ${file.filename + file.extension}!`)
 	}
 })
@@ -167,3 +175,6 @@ data.files.forEach((file)=>{
 if (data.count > 1) {
 	console.log(`Renamed ${data.count} ${data.count === 1 ? 'file' : 'files'}`);
 }
+
+// export for testing
+module.exports = { data, actions }
