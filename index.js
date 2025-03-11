@@ -147,7 +147,7 @@ actionQueue.forEach((action)=> {
 data.files.forEach((file)=>{
 	try {
 		
-		if (/\.[^\(\ )]+$/gi.test(file.filename)) {
+		if (/\.[^\(\ \/\n)]+$/gi.test(file.filename)) {
 			renameSync(file.path, join(file.dirname, file.filename))
 			console.log(`Renamed ${file.originalfilename + file.extension} => ${file.filename}`)
 			data.count += 1
