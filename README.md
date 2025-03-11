@@ -124,14 +124,20 @@ renu -i "*.mp3" -r "s" --remove
 => Renamed Bruno Mars - Treasure.mp3 => Bruno Mar - Treaure.mp3
 ```
 
+```sh
+renu -i "*.mp3" -x " \[\S+\]" --remove
+
+Renamed Artist - Song [ewRjZoRtu0Y].mp3 => Artist - Song.mp3
+```
+
 ### Substitute
 
 By using `--substitute` you can replace any string defined by `--regex`.
 
 ```sh
-renu -i "*.mp3" -x "\[\S+\]" --substitute ""
+renu -i "i like flowers.wav" -x "like" --substitute "love"
 
-Renamed Artist - Song [ewRjZoRtu0Y].mp3 => Artist - Song .mp3
+=> Renamed i like flowers.wav => i love flowers.wav
 ```
 
 ## You should know
