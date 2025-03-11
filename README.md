@@ -4,6 +4,12 @@ A simple utility for renaming files
 
 ---
 
+## Installation
+
+```sh
+npm i -g git+https://github.com/tzwel/renu.git
+```
+
 ## Usage
 
 To see all available arguments, run `renu` without any arguments. For detailed usage information it's best to refer to this file
