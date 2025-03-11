@@ -159,7 +159,6 @@ actionQueue.forEach((action)=> {
 	actions[action[0]](action[1])
 })
 
-console.log(actionQueue);
 
 // rename in fs
 data.files.forEach((file)=>{
