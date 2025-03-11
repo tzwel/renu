@@ -106,13 +106,25 @@ renu -i "*.zip" -p "pre" -s "suf" -r "foo"
 
 ### Regex
 
-**Warning: this is an experimental feature**
-
 You can initialize a regex to use later with args like `substitute` using `--regex` or its shorthand `-x`.
 
-### Substitute
+```sh
+renu -i "*" -x "s"
+```
 
-**Warning: this is an experimental feature**
+In the above example, the pattern will just look for the letter `s`. Once found, we can do many things with it, such as just remove it using `remove`
+
+#### Remove
+
+By using `--remove` you can remove any string defined by `--regex`.
+
+```sh
+renu -i "*.mp3" -r "s" --remove
+
+=> Renamed Bruno Mars - Treasure.mp3 => Bruno Mar - Treaure.mp3
+```
+
+### Substitute
 
 By using `--substitute` you can replace any string defined by `--regex`.
 
@@ -127,3 +139,5 @@ Renamed Artist - Song [ewRjZoRtu0Y].mp3 => Artist - Song .mp3
 Renu uses `globSync`, which was introuced in Node.js v22.0.0. Renu won't work on older versions of node.
 
 Renu has only one dependency: [minimist](https://www.npmjs.com/package/minimist) for parsing arguments. Minimist itself has no dependencies. This is unlikely to ever change as I advocate for simplicity.
+
+Renu currently doesn't support renaming files without an extension. This may change in the future. Most likely not.
