@@ -68,6 +68,17 @@ const actions = {
 	},
 	x(expression) { actions.regex(expression) }, // x from eXpression
 
+	remove() {
+		if (!data.regex) {
+			console.log(`To use remove, you first must define a regex. --regex or -x `);
+			return process.exit(1)
+		}
+		for (let i = 0; i < data.files.length; i++) {
+			const file = data.files[i]
+			file.filename = file.filename.replace(data.regex, '')
+		}
+	},
+
 	substitute(string) {
 		if (!data.regex) {
 			console.log(`To use substitute, you first must define a regex. --regex or -x `);
