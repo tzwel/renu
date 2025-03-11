@@ -47,13 +47,13 @@ const actions = {
 			data.files[0].filename = name
 		} else {
 			data.files.forEach(file => {
-				name = name
-				.replaceAll(specials.filename, file.filename);
+				let newFilename = name
+					.replaceAll(specials.filename, file.filename);
 
 				if (!customCounter) {
-					file.filename = `${name} (${data.index})`
+					file.filename = `${newFilename} (${data.index})`
 				} else {
-					file.filename = name
+					file.filename = newFilename
 						.replaceAll(specials.incrementTemplate, data.index)
 				}
 
@@ -158,6 +158,8 @@ function insertToQueue(key, value) {
 actionQueue.forEach((action)=> {
 	actions[action[0]](action[1])
 })
+
+console.log(actionQueue);
 
 // rename in fs
 data.files.forEach((file)=>{
