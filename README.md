@@ -112,7 +112,7 @@ You can initialize a regex to use later with args like `substitute` using `--reg
 renu -i "*" -x "s"
 ```
 
-In the above example, the pattern will just look for the letter `s`. Once found, we can do many things with it, such as just remove it using `remove`
+In the above example, the pattern will just look for the letter `s`. Once found, we can do many things with it, such as just remove it using `--remove`
 
 #### Remove
 
