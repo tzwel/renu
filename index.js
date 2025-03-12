@@ -29,7 +29,6 @@ const actions = {
 					}
 				)
 			}
-			
 		})
 	},
 	i(pattern) { actions.input(pattern) },

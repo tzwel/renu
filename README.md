@@ -8,7 +8,7 @@ A simple utility for renaming files
 
 To see all available arguments, run `renu` without any arguments. For detailed usage information it's best to refer to this file
 
-Arguments in renu are executed sequentially, meaning the order they are provided in is significant. For example - you can not rename files before they are read, so first you must read them with `--input {glob pattern}`
+Arguments in renu are executed sequentially, meaning the order they are provided in is significant. For example - you can not rename files before they are read, so first you must select them with `--input {glob pattern}`
 
 ### Rename
 
@@ -127,7 +127,7 @@ renu -i "*.mp3" -r "s" --remove
 ```sh
 renu -i "*.mp3" -x " \[\S+\]" --remove
 
-Renamed Artist - Song [ewRjZoRtu0Y].mp3 => Artist - Song.mp3
+=> Renamed Artist - Song [ewRjZoRtu0Y].mp3 => Artist - Song.mp3
 ```
 
 ### Substitute
