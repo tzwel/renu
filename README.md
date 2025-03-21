@@ -1,6 +1,6 @@
 # renu
 
-A simple utility for renaming files
+Renu is a simple but powerful command line tool for renaming files in batches. It covers all the basic tasks such as adding prefixes and suffixes to filenames, and handles more advanced use cases like regex substitution and custom filename formats using pre-defined tokens
 
 ---
 
