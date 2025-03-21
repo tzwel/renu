@@ -14,7 +14,7 @@ npm i -g git+https://github.com/tzwel/renu.git
 
 To see all available arguments, run `renu` without any arguments. For detailed usage information it's best to refer to this file
 
-Arguments in renu are executed sequentially, meaning the order they are provided in is significant. For example - you can not rename files before they are read, so first you must select them with `--input {glob pattern}`
+Arguments in renu are executed sequentially, meaning the order they are provided in is significant. For example - you can not rename files before they are read, so you must select them first with `--input {glob pattern}`
 
 ### Rename
 
