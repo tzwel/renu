@@ -11,6 +11,8 @@ const specials = {
 	filename: ':filename'
 }
 
+const extensionRegex = /\.[^\(\ \/\n\s)]+$/gi
+
 const actions = {
 	version() {
 		const package = require('./package.json')
@@ -21,7 +23,7 @@ const actions = {
 	input(pattern) {
 		const globFiles = globSync(join(process.cwd(), pattern))
 		globFiles.forEach((file)=> {
-			let ext = file.match(/\.[^\(\ \/\n)]+$/gi) // swapped from original extname
+			let ext = file.match(extensionRegex) // swapped from original extname
 			// don't work on directories
 			if (ext) {
 				ext = ext[0]
@@ -170,7 +172,7 @@ data.files.forEach((file)=>{
 	try {
 		
 		// second condition is a fix to the .git (or similar files) bug when the extension is the same as the filename
-		if (/\.[^\(\ \/\n)]+$/gi.test(file.filename) && file.filename !== file.extension) {
+		if (extensionRegex.test(file.filename) && file.filename !== file.extension) {
 			console.log(file.filename);
 			renameSync(file.path, join(file.dirname, file.filename))
 			console.log(`Renamed ${file.originalfilename + file.extension} => ${file.filename}`)
