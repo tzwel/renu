@@ -12,6 +12,12 @@ const specials = {
 }
 
 const actions = {
+	version() {
+		const package = require('./package.json')
+		console.log(package.version);
+	},
+	v() { actions.version() },
+
 	input(pattern) {
 		const globFiles = globSync(join(process.cwd(), pattern))
 		globFiles.forEach((file)=> {
